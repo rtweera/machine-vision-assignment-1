@@ -1,0 +1,5 @@
+Original image resolution: 200 x 112 pixels
+Bilinear zoomed resolution: 1000 x 560 pixels
+Nearest Neighbor zoomed resolution: 1000 x 560 pixels
+Normalized SSD - Bilinear: 222.33
+Normalized SSD - Nearest Neighbor: 238.03

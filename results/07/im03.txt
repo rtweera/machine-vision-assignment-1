@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "c:\Users\HP\Documents\Projects\machine-vision-assignment-1\answers\07.py", line 196, in <module>
+    main()
+    ~~~~^^
+  File "c:\Users\HP\Documents\Projects\machine-vision-assignment-1\answers\07.py", line 132, in main
+    zoom_factor = get_zoom_factor(im_large, im)
+  File "c:\Users\HP\Documents\Projects\machine-vision-assignment-1\answers\07.py", line 111, in get_zoom_factor
+    raise ValueError("Larger image dimensions are not integer multiples of smaller image dimensions.")
+ValueError: Larger image dimensions are not integer multiples of smaller image dimensions.

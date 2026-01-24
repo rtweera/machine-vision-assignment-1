@@ -1,0 +1,6 @@
+Determined zoom factor: 4
+Original image resolution: 480 x 300 pixels
+Bilinear zoomed resolution: 1920 x 1200 pixels
+Nearest Neighbor zoomed resolution: 1920 x 1200 pixels
+Normalized SSD - Bilinear: 18.40
+Normalized SSD - Nearest Neighbor: 26.45
