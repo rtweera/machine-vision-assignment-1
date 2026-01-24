@@ -133,7 +133,7 @@ def main():
     print(f"Determined zoom factor: {zoom_factor}")
     show_detail_crop = SHOW_DETAIL_CROP
 
-    fig, axes = plt.subplots(2, 3, figsize=(20, 14))
+    fig, axes = plt.subplots(2, 3, figsize=(20, 12))
 
     print(f"Original image resolution: {im.shape[1]} x {im.shape[0]} pixels")
     axes[0, 0].imshow(cv.cvtColor(im, cv.COLOR_BGR2RGB))
