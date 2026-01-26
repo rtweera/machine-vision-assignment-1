@@ -3,12 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def sharpen_opencv(image):
-    """
-    Method 1: The Standard OpenCV Way.
-    Uses a fixed 3x3 sharpening kernel and cv.filter2D.
-    """
     # Standard sharpening kernel
-    # The center is positive, neighbors are negative. Sum is 1 (brightness preserved).
+    # The center is positive, neighbors are negative. Sum should be 1 (brightness preserved).
     kernel = np.array([[ 0, -2,  0],
                        [-2,  9, -2],
                        [ 0, -2,  0]])
@@ -17,7 +13,7 @@ def sharpen_opencv(image):
     return sharpened
 
 def main():
-    im = cv.imread('resources/blurry-dog.jpg', cv.IMREAD_COLOR)
+    im = cv.imread('resources/cat.png', cv.IMREAD_COLOR)
     assert im is not None, "Image not found!"
 
     fig, ((ax1, ax2)) = plt.subplots(1, 2, figsize=(16, 6))
