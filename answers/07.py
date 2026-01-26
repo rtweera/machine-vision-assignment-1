@@ -36,36 +36,29 @@ def zoom_image(
     else:
         raise ValueError(f"Unsupported mode: {mode}")
 
-def calculate_bilinear_interpolate(image: np.ndarray, x: float, y: float) -> np.ndarray:
-    h, w = image.shape[:2]
-    # Don't clamp yet; use floor to get indices
+def calculate_bilinear_interpolate(img, x, y):
+    h, w = img.shape[:2]
+
     x0 = int(np.floor(x))
     y0 = int(np.floor(y))
-    x1 = x0 + 1
-    y1 = y0 + 1
-    
-    # Clamp indices to valid range
-    x0 = np.clip(x0, 0, w - 1)
-    y0 = np.clip(y0, 0, h - 1)
-    x1 = np.clip(x1, 0, w - 1)
-    y1 = np.clip(y1, 0, h - 1)
-    
-    # Recalculate fractional parts based on actual clamped indices
-    # to avoid discontinuities at boundaries
-    fx = x - int(np.floor(x))
-    fy = y - int(np.floor(y))
-    
-    Ia = image[y0, x0]
-    Ib = image[y0, x1]
-    Ic = image[y1, x0]
-    Id = image[y1, x1]
+    x1 = min(x0 + 1, w - 1)
+    y1 = min(y0 + 1, h - 1)
 
-    wa = (1 - fx) * (1 - fy)
-    wb = fx * (1 - fy)
-    wc = (1 - fx) * fy
-    wd = fx * fy
+    fx = x - x0
+    fy = y - y0
 
-    return (Ia * wa + Ib * wb + Ic * wc + Id * wd).astype(np.uint8)
+    Ia = img[y0, x0]
+    Ib = img[y0, x1]
+    Ic = img[y1, x0]
+    Id = img[y1, x1]
+
+    return (
+        Ia * (1 - fx) * (1 - fy) +
+        Ib * fx * (1 - fy) +
+        Ic * (1 - fx) * fy +
+        Id * fx * fy
+    )
+
 
 def calculate_nearest_neighbor_interpolate(image: np.ndarray, x: float, y: float) -> np.ndarray:
     h, w = image.shape[:2]
@@ -124,10 +117,12 @@ def calculate_normalized_ssd(image1: np.ndarray, image2: np.ndarray) -> float:
     return normalized_ssd   # per pixel per channel error
 
 def main():
-    im = cv.imread('resources/images_for_zoom/a1q5images/taylor_small.jpg')
-    im_large = cv.imread('resources/images_for_zoom/a1q5images/taylor.jpg')
+    im = cv.imread('resources/images_for_zoom/a1q5images/im03small.png')
+    im_large = cv.imread('resources/images_for_zoom/a1q5images/im03.png')
     assert im is not None, "Small image not found!"
     assert im_large is not None, "Large image not found!"
+    print(f"Loaded small image of shape: {im.shape}")
+    print(f"Loaded large image of shape: {im_large.shape}")
 
     zoom_factor = get_zoom_factor(im_large, im)
     print(f"Determined zoom factor: {zoom_factor}")
